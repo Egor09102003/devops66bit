@@ -1,0 +1,44 @@
+services:
+  nginx:
+    image: nginx:latest
+    volumes: 
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+    depends_on:
+      - spaceport1
+      - spaceport2
+      - spaceport3
+    networks:
+      - default
+    
+  spaceport1:
+    image: hub.66bit.ru/shared/images/devops-practice:latest
+    environment:
+      - ASP_INSTANCE_NAME=spaceport1
+    ports:
+      - 81:80
+    networks:
+      - default
+
+  spaceport2:
+    image: hub.66bit.ru/shared/images/devops-practice:latest
+    environment:
+      - ASP_INSTANCE_NAME=spaceport2
+    ports:
+      - 82:80
+    networks:
+      - default
+
+  spaceport3:
+    image: hub.66bit.ru/shared/images/devops-practice:latest
+    environment:
+      - ASP_INSTANCE_NAME=spaceport3
+    ports:
+      - 83:80
+    networks:
+      - default
+
+networks:
+  default:
+    name: localnet
