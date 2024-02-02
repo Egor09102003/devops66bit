@@ -10,7 +10,8 @@ services:
       - spaceport2
       - spaceport3
     networks:
-      - default
+      localnet:
+        ipv4_address: 10.0.0.2
     
   spaceport1:
     image: hub.66bit.ru/shared/images/devops-practice:latest
@@ -19,7 +20,8 @@ services:
     ports:
       - 81:80
     networks:
-      - default
+      localnet:
+        ipv4_address: 10.0.0.3
 
   spaceport2:
     image: hub.66bit.ru/shared/images/devops-practice:latest
@@ -28,7 +30,8 @@ services:
     ports:
       - 82:80
     networks:
-      - default
+      localnet:
+        ipv4_address: 10.0.0.4
 
   spaceport3:
     image: hub.66bit.ru/shared/images/devops-practice:latest
@@ -37,8 +40,13 @@ services:
     ports:
       - 83:80
     networks:
-      - default
+      localnet:
+        ipv4_address: 10.0.0.5
 
 networks:
-  default:
-    name: localnet
+  localnet:
+    ipam:
+      config:
+        - subnet: 10.0.0.0/16
+          gateway: 10.0.0.1
+
